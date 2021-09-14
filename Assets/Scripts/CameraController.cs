@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {   
+    public Transform cameraTransform;
+
     public float normalSpeed;
     public float fastSpeed;
     private float movementSpeed;
     public float movementTime;
     public float rotationAmount;
+    public Vector3 zoomAmount;
 
     public Vector3 newPosition;
     public Quaternion newRotation;
-
+    public Vector3 newZoom;
     void Start()
     {
         
         newPosition = transform.position;
         newRotation = transform.rotation;
-
+        newZoom = cameraTransform.localPosition;
     }
 
     // Update is called once per frame
@@ -63,7 +66,18 @@ public class CameraController : MonoBehaviour
             newRotation *= Quaternion.Euler(Vector3.up *- rotationAmount);
         }
 
+        if(Input.GetKey(KeyCode.R))
+        {
+            newZoom += zoomAmount;
+        }
+        if(Input.GetKey(KeyCode.F))
+        {
+            newZoom -= zoomAmount;
+        }
+
+
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * movementTime);
+        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime);
     }
 }
