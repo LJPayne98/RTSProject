@@ -8,15 +8,16 @@ public class CameraController : MonoBehaviour
     public float fastSpeed;
     private float movementSpeed;
     public float movementTime;
-
+    public float rotationAmount;
 
     public Vector3 newPosition;
-
+    public Quaternion newRotation;
 
     void Start()
     {
         
         newPosition = transform.position;
+        newRotation = transform.rotation;
 
     }
 
@@ -53,6 +54,16 @@ public class CameraController : MonoBehaviour
             newPosition += (transform.right * -movementSpeed);
         }
 
+        if(Input.GetKey(KeyCode.Q))
+        {
+            newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
+        }
+        if(Input.GetKey(KeyCode.E))
+        {
+            newRotation *= Quaternion.Euler(Vector3.up *- rotationAmount);
+        }
+
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * movementTime);
     }
 }
