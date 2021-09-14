@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {   
     public Transform cameraTransform;
+    public Camera camera;
 
     public float normalSpeed;
     public float fastSpeed;
@@ -19,6 +20,8 @@ public class CameraController : MonoBehaviour
 
     public Vector3 dragStartPosition;
     public Vector3 dragCurrentPosition;
+    public Vector3 rotateStartPosition;
+    public Vector3 rotateCurrentPosition;
 
 
     void Start()
@@ -46,7 +49,7 @@ public class CameraController : MonoBehaviour
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
             float entry;
 
@@ -59,7 +62,7 @@ public class CameraController : MonoBehaviour
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
             float entry;
 
