@@ -72,7 +72,21 @@ public class CameraController : MonoBehaviour
 
                 newPosition = transform.position + dragStartPosition - dragCurrentPosition;
             }
-        }        
+        }
+        if(Input.GetMouseButtonDown(2))
+        {
+            rotateStartPosition = Input.mousePosition;
+        }
+        if(Input.GetMouseButton(2))
+        {
+            rotateCurrentPosition = Input.mousePosition;
+
+            Vector3 difference = rotateStartPosition - rotateCurrentPosition;
+
+            rotateStartPosition = rotateCurrentPosition;
+
+            newRotation *= Quaternion.Euler(Vector3.up * (-difference.x / 5f));
+        }
     }
 
     void HandleMovementInput() 
