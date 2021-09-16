@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {   
     public Transform cameraTransform;
-    public Camera camera;
+    public new Camera camera;
 
     public float normalSpeed;
     public float fastSpeed;
