@@ -32,7 +32,6 @@ public class CameraController : MonoBehaviour
         newZoom = cameraTransform.localPosition;
     }
 
-    // Update is called once per frame
     void Update()
     {
         HandleMouseInput();
@@ -41,7 +40,7 @@ public class CameraController : MonoBehaviour
 
     void HandleMouseInput()
     {   
-        if(Input.mouseScrollDelta.y != 0)
+        if(Input.mouseScrollDelta.y != 0) //handles zooming with middle mouse wheel
         {
             newZoom += Input.mouseScrollDelta.y * zoomAmount;
         }
@@ -49,6 +48,7 @@ public class CameraController : MonoBehaviour
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
 
+            // camera must be attatched onto the Camera Rig
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
             float entry;
@@ -58,7 +58,7 @@ public class CameraController : MonoBehaviour
                 dragStartPosition = ray.GetPoint(entry);
             }
         }
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButton(0)) //left click
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
 
@@ -73,7 +73,7 @@ public class CameraController : MonoBehaviour
                 newPosition = transform.position + dragStartPosition - dragCurrentPosition;
             }
         }
-        if(Input.GetMouseButtonDown(2))
+        if(Input.GetMouseButtonDown(2)) //middle mouse button
         {
             rotateStartPosition = Input.mousePosition;
         }
@@ -125,7 +125,7 @@ public class CameraController : MonoBehaviour
             newRotation *= Quaternion.Euler(Vector3.up *- rotationAmount);
         }
 
-
+        //lerp allows for smooth camera movements view Lerp unity Doc for more info
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * movementTime);
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime);
